@@ -82,6 +82,8 @@ window.onload = function() {
 		}
 	};
 
+
+
 	// Check current plays for a winning combination
 	// parseInt on values before comparing to improve performance
 	var checkWin = function(play) {
@@ -92,50 +94,16 @@ window.onload = function() {
 			player = "O";
 		}
 
-		if ((play.indexOf('1') !== -1) 
-			&& (play.indexOf('2') !== -1) 
-			&& (play.indexOf('3') !== -1)) {
-				executeWin(player, winningCombos[0])
-				return true;
-		} else if (play.indexOf('1') !== -1 
-			&& play.indexOf('4') !== -1 
-			&& play.indexOf('7') !== -1) {
-				executeWin(player, winningCombos[1]);
-				return true;
-		} else if (play.indexOf('1') !== -1 
-			&& play.indexOf('5') !== -1 
-			&& play.indexOf('9') !== -1) {
-				executeWin(player, winningCombos[2]);
-				return true;
-		} else if (play.indexOf('4') !== -1 
-			&& play.indexOf('5') !== -1 
-			&& play.indexOf('6') !== -1) {
-				executeWin(player, winningCombos[3]);
-				return true;
-		} else if (play.indexOf('3') !== -1 
-			&& play.indexOf('6') !== -1 
-			&& play.indexOf('9') !== -1) {
-				executeWin(player, winningCombos[4]);
-				return true;
-		} else if (play.indexOf('3') !== -1 
-			&& play.indexOf('5') !== -1 
-			&& play.indexOf('7') !== -1) {
-				executeWin(player, winningCombos[5]);
-				return true;
-		} else if (play.indexOf('7') !== -1 
-			&& play.indexOf('8') !== -1 
-			&& play.indexOf('9') !== -1) {
-				executeWin(player, winningCombos[6]);
-				return true;
-		} else if (play.indexOf('2') !== -1 
-			&& play.indexOf('5') !== -1 
-			&& play.indexOf('8') !== -1) {
-				executeWin(player, winningCombos[7]);
-				return true;
-		} else {
-			checkDraw(playsX, playsO);
-			return false;
+		for (var i = 0; i < winningCombos.length; i++) {
+			if (play.indexOf(winningCombos[i][0]) !== -1
+				&& play.indexOf(winningCombos[i][1]) !== -1
+				&& play.indexOf(winningCombos[i][2]) !== -1) {
+					executeWin(player, winningCombos[i])
+					return true;
+			}
 		}
+		checkDraw(playsX, playsO);
+		return false;
 	};
 
 	// add click handlers to all boxes
@@ -150,13 +118,13 @@ window.onload = function() {
 				this.innerHTML = 'X';
 				this.className += " x";
 				turn = false;
-				playsX.push(this.getAttribute('data-position'));
+				playsX.push(parseInt(this.getAttribute('data-position')));
 				checkWin(playsX);
 			} else if (!turn && this.innerHTML === '') {
 				this.innerHTML = 'O';
 				this.className += " o";
 				turn = true;
-				playsO.push(this.getAttribute('data-position'));
+				playsO.push(parseInt(this.getAttribute('data-position')));
 				checkWin(playsO);
 			}
 			console.log("X plays: ", playsX);

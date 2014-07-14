@@ -50,9 +50,7 @@ h1 {
 }
 
 .box:active {
-	border-width:0px;
-	width: 101px;
-	height: 101px;
+	border-color: #eee;
 }
 
 .winning-play, .winning-play:hover {
